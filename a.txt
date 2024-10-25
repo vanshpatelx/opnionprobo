@@ -1,0 +1,24 @@
+endpoints
+1. GET /events
+2. GET /event/:ID
+3. POST /user - creating user
+4. GET /user
+5. POST /order
+6. POST /event
+7. GET /categories
+8. POST /categories
+
+
+
+
+
+
+
+// API Endpoints
+1. All events - https://analytics.probo.in/api/v1/captureEvent
+2. Socket.io Stock Price, Queue - wss://falcon.api.probo.in/socket.io/?EIO=4&transport=websocket
+    1. auth token send
+    2. Session ID,Subscribe orderbook and LTP
+3. POST Place Order - https://prod.api.probo.in/api/v1/oms/order/initiate
+4. Avaliable Quantity at that price - https://prod.api.probo.in/api/v3/tms/trade/bestAvailablePrice?eventId=3178203&requestType=availableQuantities
+5. Crypto Tradingview - WSS - wss://widgetdata.tradingview.com/socket.io/websocket?from=widgetembed%2F&date=2024_10_18-11_18&page-uri=probo.in%2Fevents%2Fbitcoin-to-be-priced-at-6860600-usdt-or-more-at-1015-pm-ajema&ancestor-origin=probo.in
