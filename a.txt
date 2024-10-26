@@ -9,7 +9,14 @@ endpoints
 8. POST /categories
 
 
+DB server : DB Pools, Consistent connection, BatchProcessing, Rollback try for 2 - 3 times
 
+soln : To handle failed batch processing by sending the unsaved messages back to Server 1 for retry, we can use a Redis list (like a queue) to store failed batches. If a rollback occurs after multiple attempts, the failed messages are pushed to the Redis queue for Server 1 to pick up and resend.
+we use caching from DB after each second so get accurate resuits, and handle lots of connections
+caching logic : more accessed data, less accessed data like that in DB server, we call from here to get data
+1. after event done, send to another table, eventtime fatch new table faster (1 sec), another table is (10 sec)
+2. user register - add to cache directly, update - add cache, otherwise - every mins or 10 mins
+3. order - each seconds for current events, events close - not need at - low freq cache 
 
 
 
@@ -22,3 +29,19 @@ endpoints
 3. POST Place Order - https://prod.api.probo.in/api/v1/oms/order/initiate
 4. Avaliable Quantity at that price - https://prod.api.probo.in/api/v3/tms/trade/bestAvailablePrice?eventId=3178203&requestType=availableQuantities
 5. Crypto Tradingview - WSS - wss://widgetdata.tradingview.com/socket.io/websocket?from=widgetembed%2F&date=2024_10_18-11_18&page-uri=probo.in%2Fevents%2Fbitcoin-to-be-priced-at-6860600-usdt-or-more-at-1015-pm-ajema&ancestor-origin=probo.in
+
+
+
+// TrackBook
+[ ] schema design for each on DB server with check
+[ ] DB on Dockers
+[ ] subscriber setup
+[ ] handling bulk queries
+[ ] handking RETRY queries - both side
+[ ] impment of basic routes
+[ ] middleware setup
+[ ] caching logic setup
+[ ] check whole 2 servers work properly or not
+[ ] build exchange in golang
+[ ] WS server on golang again
+[ ] again setup pubsubs
