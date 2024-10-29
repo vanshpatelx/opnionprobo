@@ -19,7 +19,8 @@ caching logic : more accessed data, less accessed data like that in DB server, w
 3. order - each seconds for current events, events close - not need at - low freq cache 
 
 
-
+problems
+1. we must have to fetch user data each second because of balance conflict between both redis cache
 
 // API Endpoints
 1. All events - https://analytics.probo.in/api/v1/captureEvent
@@ -33,15 +34,122 @@ caching logic : more accessed data, less accessed data like that in DB server, w
 
 
 // TrackBook
-[ ] schema design for each on DB server with check
+[x] schema design for each on DB server with check
 [ ] DB on Dockers
 [ ] subscriber setup
 [ ] handling bulk queries
 [ ] handking RETRY queries - both side
-[ ] impment of basic routes
+[ ] Impment of basic routes
 [ ] middleware setup
 [ ] caching logic setup
 [ ] check whole 2 servers work properly or not
 [ ] build exchange in golang
 [ ] WS server on golang again
 [ ] again setup pubsubs
+
+
+
+
+/*
+Users
+1. id
+2. username
+3. password
+4. role
+
+
+Events
+1. id
+2. name
+3. endTime
+4. description
+5. sourceOfTruth
+
+Categories
+1. id
+2. title
+3. icon
+4. description
+
+Events_Categories_Mapping
+1. id
+2. categoryId
+3. EventsId
+
+Orders
+1. id
+2. eventId
+3. side (yes or no)
+4. type => buy or sell
+5. qty
+6. price
+7. timestamp
+8. filledQuantity
+9. status ('Not Executed', 'Partial', 'Done')
+10. userId
+
+Trades
+1. id
+2. buyerId
+3. sellerId
+4. qty
+5. price
+6. eventId
+7. timestamp
+
+*/
+
+
+portfolio schema
+- eventId
+- 
+
+user related
+- [X] register user
+- [X] login user
+- [x] addBalance
+- [x] getBalance
+- [ ] getPortfolio
+- [x] admin get all users
+
+
+order related
+- [X] POST Order
+- [X] get OrderBook
+- [X] admin get all orderbooks
+- [ ] admin get all trades
+
+
+event related
+- [x] get event
+- [x] get all events
+- [X] get categories
+- [X] admin add categories
+- [X] admin add events
+- [X] admin maping categories with (directly change in table)
+
+
+admin special related
+- [ ] reset
+- [ ] settlements
+
+
+// Order status change
+// add Trades
+
+
+// design of API Endpoints
+// after done events, settlemengts
+// initial logic for caching and queues
+// create table changes, DB changes Schemas
+// subscribers changes
+// test everything
+// docker everything
+
+// build exchange
+// add redis, trade mechanism, and lots
+// queue for exchange
+// WS Server
+// handling users in WS
+// End to end setup
+// docker
